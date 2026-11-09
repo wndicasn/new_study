@@ -1,0 +1,53 @@
+########################################
+# 自定义事件 (Little Code Sauce)
+# lcs.1 : 开局自动弹出（仅玩家），永久给予国家修正
+# lcs.2 : 备用，控制台 'event lcs.2' 随时补发
+########################################
+
+namespace = lcs
+
+# 自动触发：人类玩家开局几天内弹出
+country_event = {
+	id = lcs.1
+	title = "lcs.1.t"
+	desc = "lcs.1.d"
+	picture = FARMING_eventPicture
+
+	major = yes
+	fire_only_once = yes
+
+	trigger = {
+		ai = no
+		NOT = { has_country_modifier = lcs_cheat_modifier }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = "lcs.1.a"
+		add_country_modifier = {
+			name = "lcs_cheat_modifier"
+			duration = -1
+		}
+	}
+}
+
+# 备用事件：只靠控制台触发，改数值后重新发一次用得上
+country_event = {
+	id = lcs.2
+	title = "lcs.1.t"
+	desc = "lcs.1.d"
+	picture = FARMING_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "lcs.1.a"
+		add_country_modifier = {
+			name = "lcs_cheat_modifier"
+			duration = -1
+		}
+	}
+}
