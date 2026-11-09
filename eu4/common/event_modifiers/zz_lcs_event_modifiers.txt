@@ -6,7 +6,9 @@
 
 lcs_cheat_modifier = {
 	core_creation = -0.80                  # 核心化花费 -80%
-	development_cost = -0.50               # 发展成本 -50%
+	development_cost = -0.70               # 发展成本 -70%（原 -50%，再叠 -20%）
 	years_of_nationalism = -20             # 分离主义年限 -20
 	global_regiment_recruit_speed = -0.50  # 陆军募兵时间 -50%
+	culture_conversion_time = -0.90        # 文化转变时间 -90%
+	culture_conversion_cost = -0.80        # 文化转变花费 -80%
 }

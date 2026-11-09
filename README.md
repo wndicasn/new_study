@@ -29,9 +29,11 @@
 | 修正 | 数值 | 含义 |
 |---|---|---|
 | `core_creation` | -0.80 | 核心化花费 -80% |
-| `development_cost` | -0.50 | 发展成本 -50% |
+| `development_cost` | -0.70 | 发展成本 -70%（原 -50% 再叠 -20%） |
 | `years_of_nationalism` | -20 | 分离主义年数 -20 |
 | `global_regiment_recruit_speed` | -0.50 | 募兵时间 -50% |
+| `culture_conversion_time` | -0.90 | 文化转变时间 -90% |
+| `culture_conversion_cost` | -0.80 | 文化转变花费 -80% |
 
 本地化：`l_english` 与 `l_simp_chinese` 两份镜像（游戏语言是 `l_english`，与中文汉化包同做法），文件为 UTF-8 **带 BOM**。
 
