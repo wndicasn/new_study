@@ -11,6 +11,11 @@
 | `eu4/common/event_modifiers/zz_lcs_event_modifiers.txt` | `Europa Universalis IV\common\event_modifiers\zz_lcs_event_modifiers.txt` |
 | `eu4/localisation/lcs_l_english.yml` | `Europa Universalis IV\localisation\lcs_l_english.yml` |
 | `eu4/localisation/lcs_l_simp_chinese.yml` | `Europa Universalis IV\localisation\lcs_l_simp_chinese.yml` |
+| `eu4/events/lcs_great_powers.txt` | `Europa Universalis IV\events\lcs_great_powers.txt` |
+| `eu4/common/event_modifiers/zz_lcs_great_power_modifiers.txt` | `Europa Universalis IV\common\event_modifiers\zz_lcs_great_power_modifiers.txt` |
+| `eu4/localisation/lcs_gp_l_english.yml` | `Europa Universalis IV\localisation\lcs_gp_l_english.yml` |
+| `eu4/localisation/lcs_gp_l_simp_chinese.yml` | `Europa Universalis IV\localisation\lcs_gp_l_simp_chinese.yml` |
+| `tools/gen_great_powers.py` | 生成器，不在游戏目录内 |
 | `eu4/common/static_modifiers/00_static_modifiers.txt` | `Europa Universalis IV\common\static_modifiers\00_static_modifiers.txt` |
 | `workshop/Very_hard_ai_xorme_ai__3322593885/common/static_modifiers/xorme_static_modifiers.txt` | `steamapps\workshop\content\236850\3322593885\common\static_modifiers\xorme_static_modifiers.txt`（实际生效的那份） |
 | `workshop/Xorme_AI__2451296932/common/static_modifiers/xorme_static_modifiers.txt` | `steamapps\workshop\content\236850\2451296932\common\static_modifiers\xorme_static_modifiers.txt`（同名文件被上面那份覆盖，属备用） |
@@ -66,13 +71,77 @@
 
 `xorme_static_modifiers.txt` 的 `luck` 块（幸运国家机制，不分难度）仍有 `ae_impact = -0.25`。要清零就删掉那一行。
 
-## 三、还原
+## 三、主要国家 · 时代专属修正（新增）
+
+`eu4/events/lcs_great_powers.txt`，namespace `lcs_gp`：10 组国家 × 5 个时代 = 50 个事件、50 个 `duration = -1` 专属修正（数值在 `eu4/common/event_modifiers/zz_lcs_great_power_modifiers.txt`）。
+
+每个事件的触发条件 = 国家标签匹配 + 当前年份落在该时代区间 + 未持有该时代的 flag，`mean_time_to_happen = { days = 5 }`，进入时代后几天内自动弹出，点掉即永久生效；同一时代不会重复弹。国家若在后期才成立（如大清、大不列颠），只拿当前及之后时代的加成。
+
+每个修正都作用于**拥有该 tag 的国家本身**，玩家和 AI 一视同仁；只想给自己用，就在对应事件的 `trigger` 里加一行 `ai = no`。
+
+| 国家 | 时代 | 修正 id | 效果 |
+|---|---|---|---|
+| 法兰西 | 1444–1499 | `lcs_fra_1` | 陆军士气 +10%；人力恢复 +10% |
+| 法兰西 | 1500–1599 | `lcs_fra_2` | 步兵战斗力 +10%；陆军上限 +10% |
+| 法兰西 | 1600–1699 | `lcs_fra_3` | 训练度 +5%；每年威望 +0.5；行政维护 -5% |
+| 法兰西 | 1700–1799 | `lcs_fra_4` | 科技花费 -10%；理念花费 -10% |
+| 法兰西 | 1800+ | `lcs_fra_5` | 陆军士气 +15%；训练度 +10%；人力恢复 +10% |
+| 不列颠 | 1444–1499 | `lcs_gbr_1` | 海军士气 +10%；船只耐久 +5% |
+| 不列颠 | 1500–1599 | `lcs_gbr_2` | 海军上限 +15%；船只耐久 +10%；海军士气 +5% |
+| 不列颠 | 1600–1699 | `lcs_gbr_3` | 贷款利息 -1；贸易效率 +10% |
+| 不列颠 | 1700–1799 | `lcs_gbr_4` | 生产效率 +10%；科技花费 -5% |
+| 不列颠 | 1800+ | `lcs_gbr_5` | 生产效率 +15%；贸易效率 +10%；贸易竞争力 +10% |
+| 西班牙 | 1444–1499 | `lcs_spa_1` | 陆军士气 +5%；传教强度 +2% |
+| 西班牙 | 1500–1599 | `lcs_spa_2` | 殖民范围 +20%；殖民者 +1 名 |
+| 西班牙 | 1600–1699 | `lcs_spa_3` | 贸易效率 +10%；每年威望 +0.5 |
+| 西班牙 | 1700–1799 | `lcs_spa_4` | 建筑花费 -10%；发展成本 -5%；税收 +5% |
+| 西班牙 | 1800+ | `lcs_spa_5` | 稳定花费 -10%；行政效率 +5% |
+| 奥斯曼 | 1444–1499 | `lcs_tur_1` | 陆军士气 +10%；人力恢复 +10% |
+| 奥斯曼 | 1500–1599 | `lcs_tur_2` | 训练度 +5%；行政效率 +5% |
+| 奥斯曼 | 1600–1699 | `lcs_tur_3` | 建筑花费 -10%；稳定花费 -10% |
+| 奥斯曼 | 1700–1799 | `lcs_tur_4` | 科技花费 -10%；行政维护 -5% |
+| 奥斯曼 | 1800+ | `lcs_tur_5` | 行政效率 +10%；科技花费 -10%；理念花费 -5% |
+| 奥地利 | 1444–1499 | `lcs_hab_1` | 外交声望 +1；改善关系 +20% |
+| 奥地利 | 1500–1599 | `lcs_hab_2` | 传教强度 +3%；稳定花费 -5% |
+| 奥地利 | 1600–1699 | `lcs_hab_3` | 训练度 +5%；人力上限 +10% |
+| 奥地利 | 1700–1799 | `lcs_hab_4` | 税收 +10%；行政效率 +5% |
+| 奥地利 | 1800+ | `lcs_hab_5` | 外交声望 +2；改善关系 +30% |
+| 俄罗斯 | 1444–1499 | `lcs_rus_1` | 人力上限 +15%；人力恢复 +10% |
+| 俄罗斯 | 1500–1599 | `lcs_rus_2` | 训练度 +5%；全国动乱 -1 |
+| 俄罗斯 | 1600–1699 | `lcs_rus_3` | 治理容量 +10%；税收 +10% |
+| 俄罗斯 | 1700–1799 | `lcs_rus_4` | 科技花费 -10%；训练度 +5% |
+| 俄罗斯 | 1800+ | `lcs_rus_5` | 人力恢复 +20%；陆军士气 +10%；人力上限 +10% |
+| 中华 | 1444–1499 | `lcs_chn_1` | 税收 +10%；稳定花费 -10% |
+| 中华 | 1500–1599 | `lcs_chn_2` | 贸易效率 +10%；贸易竞争力 +10% |
+| 中华 | 1600–1699 | `lcs_chn_3` | 税收 +10%；发展成本 -10% |
+| 中华 | 1700–1799 | `lcs_chn_4` | 发展成本 -15%；税收 +10%；建筑花费 -10% |
+| 中华 | 1800+ | `lcs_chn_5` | 科技花费 -10%；建筑花费 -10%；生产效率 +10% |
+| 波兰 | 1444–1499 | `lcs_pol_1` | 骑兵战斗力 +15%；陆军士气 +5% |
+| 波兰 | 1500–1599 | `lcs_pol_2` | 骑兵战斗力 +10%；外交声望 +1 |
+| 波兰 | 1600–1699 | `lcs_pol_3` | 陆军士气 +10%；人力恢复 +10% |
+| 波兰 | 1700–1799 | `lcs_pol_4` | 稳定花费 -10%；行政效率 +5% |
+| 波兰 | 1800+ | `lcs_pol_5` | 陆军士气 +10%；步兵战斗力 +10% |
+| 瑞典 | 1444–1499 | `lcs_swe_1` | 生产效率 +5%；建筑花费 -5% |
+| 瑞典 | 1500–1599 | `lcs_swe_2` | 步兵战斗力 +15%；训练度 +5% |
+| 瑞典 | 1600–1699 | `lcs_swe_3` | 人力恢复 +10%；陆军上限 +10% |
+| 瑞典 | 1700–1799 | `lcs_swe_4` | 科技花费 -10%；理念花费 -10% |
+| 瑞典 | 1800+ | `lcs_swe_5` | 陆军士气 +10%；训练度 +5% |
+| 普鲁士 | 1444–1499 | `lcs_pru_1` | 陆军士气 +5%；人力恢复 +10% |
+| 普鲁士 | 1500–1599 | `lcs_pru_2` | 训练度 +5%；步兵战斗力 +5% |
+| 普鲁士 | 1600–1699 | `lcs_pru_3` | 训练度 +5%；陆军上限 +10% |
+| 普鲁士 | 1700–1799 | `lcs_pru_4` | 训练度 +10%；陆军士气 +10% |
+| 普鲁士 | 1800+ | `lcs_pru_5` | 训练度 +5%；人力恢复 +20%；行政效率 +5% |
+
+生成器：`tools/gen_great_powers.py`（改数值直接改 `GROUPS`，重跑即可整套重生成）。
+
+## 四、还原
 
 - 本体文件：Steam「验证游戏文件完整性」。
 - 工坊 mod：取消订阅再订阅，或删掉该 mod 目录让其重新下载（改过的文件会被覆盖回原版）。
 
-## 四、备注
+## 五、备注
 
 - 难度是**存档属性**，改完读现有极难档或新开极难局生效。
 - 极难块里 `core_creation_cost = -2` 是无效键，`error.log` 里有 `Unknown modifier. Type: "core_creation_cost"` 报错，实际不生效；未改动（有效键是 `core_creation`，改了会让 AI 免费核心化）。
 - `Documents\Paradox Interactive\Europa Universalis IV\logs\error.log` 可用于确认新加的键没有报错。
+- 本地化 yml 必须 UTF-8 **带 BOM**：被剥掉 BOM 的文件游戏会按单字节读，`error.log` 报 `Error in localization value! Key: "...", Error: "Couldn't find Latin1 character"`，中文不再显示。

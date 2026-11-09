@@ -1,0 +1,1187 @@
+########################################
+# 主要国家 · 时代专属修正 (Little Code Sauce)
+# 每个国家在 5 个时代各触发一次，进入时代后数日内自动发生
+# 共有 50 个事件 / 50 个专属修正
+########################################
+
+namespace = lcs_gp
+
+country_event = {
+	id = lcs_gp.1
+	title = "lcs_gp.1.t"
+	desc = "lcs_gp.1.d"
+	picture = LAND_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = FRA
+		NOT = { has_country_flag = lcs_gp_fra_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.1.a"
+		add_country_modifier = { name = lcs_fra_1 duration = -1 }
+		set_country_flag = lcs_gp_fra_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.2
+	title = "lcs_gp.2.t"
+	desc = "lcs_gp.2.d"
+	picture = LAND_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = FRA
+		NOT = { has_country_flag = lcs_gp_fra_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.2.a"
+		add_country_modifier = { name = lcs_fra_2 duration = -1 }
+		set_country_flag = lcs_gp_fra_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.3
+	title = "lcs_gp.3.t"
+	desc = "lcs_gp.3.d"
+	picture = LAND_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = FRA
+		NOT = { has_country_flag = lcs_gp_fra_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.3.a"
+		add_country_modifier = { name = lcs_fra_3 duration = -1 }
+		set_country_flag = lcs_gp_fra_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.4
+	title = "lcs_gp.4.t"
+	desc = "lcs_gp.4.d"
+	picture = LAND_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = FRA
+		NOT = { has_country_flag = lcs_gp_fra_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.4.a"
+		add_country_modifier = { name = lcs_fra_4 duration = -1 }
+		set_country_flag = lcs_gp_fra_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.5
+	title = "lcs_gp.5.t"
+	desc = "lcs_gp.5.d"
+	picture = LAND_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = FRA
+		NOT = { has_country_flag = lcs_gp_fra_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.5.a"
+		add_country_modifier = { name = lcs_fra_5 duration = -1 }
+		set_country_flag = lcs_gp_fra_5
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.6
+	title = "lcs_gp.6.t"
+	desc = "lcs_gp.6.d"
+	picture = NAVAL_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = ENG
+			tag = GBR
+		}
+		NOT = { has_country_flag = lcs_gp_gbr_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.6.a"
+		add_country_modifier = { name = lcs_gbr_1 duration = -1 }
+		set_country_flag = lcs_gp_gbr_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.7
+	title = "lcs_gp.7.t"
+	desc = "lcs_gp.7.d"
+	picture = NAVAL_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = ENG
+			tag = GBR
+		}
+		NOT = { has_country_flag = lcs_gp_gbr_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.7.a"
+		add_country_modifier = { name = lcs_gbr_2 duration = -1 }
+		set_country_flag = lcs_gp_gbr_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.8
+	title = "lcs_gp.8.t"
+	desc = "lcs_gp.8.d"
+	picture = NAVAL_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = ENG
+			tag = GBR
+		}
+		NOT = { has_country_flag = lcs_gp_gbr_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.8.a"
+		add_country_modifier = { name = lcs_gbr_3 duration = -1 }
+		set_country_flag = lcs_gp_gbr_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.9
+	title = "lcs_gp.9.t"
+	desc = "lcs_gp.9.d"
+	picture = NAVAL_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = ENG
+			tag = GBR
+		}
+		NOT = { has_country_flag = lcs_gp_gbr_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.9.a"
+		add_country_modifier = { name = lcs_gbr_4 duration = -1 }
+		set_country_flag = lcs_gp_gbr_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.10
+	title = "lcs_gp.10.t"
+	desc = "lcs_gp.10.d"
+	picture = NAVAL_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = ENG
+			tag = GBR
+		}
+		NOT = { has_country_flag = lcs_gp_gbr_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.10.a"
+		add_country_modifier = { name = lcs_gbr_5 duration = -1 }
+		set_country_flag = lcs_gp_gbr_5
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.11
+	title = "lcs_gp.11.t"
+	desc = "lcs_gp.11.d"
+	picture = COLONIZATION_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = CAS
+			tag = SPA
+		}
+		NOT = { has_country_flag = lcs_gp_spa_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.11.a"
+		add_country_modifier = { name = lcs_spa_1 duration = -1 }
+		set_country_flag = lcs_gp_spa_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.12
+	title = "lcs_gp.12.t"
+	desc = "lcs_gp.12.d"
+	picture = COLONIZATION_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = CAS
+			tag = SPA
+		}
+		NOT = { has_country_flag = lcs_gp_spa_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.12.a"
+		add_country_modifier = { name = lcs_spa_2 duration = -1 }
+		set_country_flag = lcs_gp_spa_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.13
+	title = "lcs_gp.13.t"
+	desc = "lcs_gp.13.d"
+	picture = COLONIZATION_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = CAS
+			tag = SPA
+		}
+		NOT = { has_country_flag = lcs_gp_spa_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.13.a"
+		add_country_modifier = { name = lcs_spa_3 duration = -1 }
+		set_country_flag = lcs_gp_spa_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.14
+	title = "lcs_gp.14.t"
+	desc = "lcs_gp.14.d"
+	picture = COLONIZATION_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = CAS
+			tag = SPA
+		}
+		NOT = { has_country_flag = lcs_gp_spa_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.14.a"
+		add_country_modifier = { name = lcs_spa_4 duration = -1 }
+		set_country_flag = lcs_gp_spa_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.15
+	title = "lcs_gp.15.t"
+	desc = "lcs_gp.15.d"
+	picture = COLONIZATION_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = CAS
+			tag = SPA
+		}
+		NOT = { has_country_flag = lcs_gp_spa_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.15.a"
+		add_country_modifier = { name = lcs_spa_5 duration = -1 }
+		set_country_flag = lcs_gp_spa_5
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.16
+	title = "lcs_gp.16.t"
+	desc = "lcs_gp.16.d"
+	picture = CONSTANTINOPLE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = TUR
+		NOT = { has_country_flag = lcs_gp_tur_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.16.a"
+		add_country_modifier = { name = lcs_tur_1 duration = -1 }
+		set_country_flag = lcs_gp_tur_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.17
+	title = "lcs_gp.17.t"
+	desc = "lcs_gp.17.d"
+	picture = CONSTANTINOPLE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = TUR
+		NOT = { has_country_flag = lcs_gp_tur_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.17.a"
+		add_country_modifier = { name = lcs_tur_2 duration = -1 }
+		set_country_flag = lcs_gp_tur_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.18
+	title = "lcs_gp.18.t"
+	desc = "lcs_gp.18.d"
+	picture = CONSTANTINOPLE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = TUR
+		NOT = { has_country_flag = lcs_gp_tur_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.18.a"
+		add_country_modifier = { name = lcs_tur_3 duration = -1 }
+		set_country_flag = lcs_gp_tur_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.19
+	title = "lcs_gp.19.t"
+	desc = "lcs_gp.19.d"
+	picture = CONSTANTINOPLE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = TUR
+		NOT = { has_country_flag = lcs_gp_tur_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.19.a"
+		add_country_modifier = { name = lcs_tur_4 duration = -1 }
+		set_country_flag = lcs_gp_tur_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.20
+	title = "lcs_gp.20.t"
+	desc = "lcs_gp.20.d"
+	picture = CONSTANTINOPLE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = TUR
+		NOT = { has_country_flag = lcs_gp_tur_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.20.a"
+		add_country_modifier = { name = lcs_tur_5 duration = -1 }
+		set_country_flag = lcs_gp_tur_5
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.21
+	title = "lcs_gp.21.t"
+	desc = "lcs_gp.21.d"
+	picture = COURT_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = HAB
+		NOT = { has_country_flag = lcs_gp_hab_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.21.a"
+		add_country_modifier = { name = lcs_hab_1 duration = -1 }
+		set_country_flag = lcs_gp_hab_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.22
+	title = "lcs_gp.22.t"
+	desc = "lcs_gp.22.d"
+	picture = COURT_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = HAB
+		NOT = { has_country_flag = lcs_gp_hab_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.22.a"
+		add_country_modifier = { name = lcs_hab_2 duration = -1 }
+		set_country_flag = lcs_gp_hab_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.23
+	title = "lcs_gp.23.t"
+	desc = "lcs_gp.23.d"
+	picture = COURT_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = HAB
+		NOT = { has_country_flag = lcs_gp_hab_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.23.a"
+		add_country_modifier = { name = lcs_hab_3 duration = -1 }
+		set_country_flag = lcs_gp_hab_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.24
+	title = "lcs_gp.24.t"
+	desc = "lcs_gp.24.d"
+	picture = COURT_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = HAB
+		NOT = { has_country_flag = lcs_gp_hab_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.24.a"
+		add_country_modifier = { name = lcs_hab_4 duration = -1 }
+		set_country_flag = lcs_gp_hab_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.25
+	title = "lcs_gp.25.t"
+	desc = "lcs_gp.25.d"
+	picture = COURT_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = HAB
+		NOT = { has_country_flag = lcs_gp_hab_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.25.a"
+		add_country_modifier = { name = lcs_hab_5 duration = -1 }
+		set_country_flag = lcs_gp_hab_5
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.26
+	title = "lcs_gp.26.t"
+	desc = "lcs_gp.26.d"
+	picture = MILITARY_CAMP_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = MOS
+			tag = RUS
+		}
+		NOT = { has_country_flag = lcs_gp_rus_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.26.a"
+		add_country_modifier = { name = lcs_rus_1 duration = -1 }
+		set_country_flag = lcs_gp_rus_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.27
+	title = "lcs_gp.27.t"
+	desc = "lcs_gp.27.d"
+	picture = MILITARY_CAMP_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = MOS
+			tag = RUS
+		}
+		NOT = { has_country_flag = lcs_gp_rus_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.27.a"
+		add_country_modifier = { name = lcs_rus_2 duration = -1 }
+		set_country_flag = lcs_gp_rus_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.28
+	title = "lcs_gp.28.t"
+	desc = "lcs_gp.28.d"
+	picture = MILITARY_CAMP_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = MOS
+			tag = RUS
+		}
+		NOT = { has_country_flag = lcs_gp_rus_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.28.a"
+		add_country_modifier = { name = lcs_rus_3 duration = -1 }
+		set_country_flag = lcs_gp_rus_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.29
+	title = "lcs_gp.29.t"
+	desc = "lcs_gp.29.d"
+	picture = MILITARY_CAMP_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = MOS
+			tag = RUS
+		}
+		NOT = { has_country_flag = lcs_gp_rus_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.29.a"
+		add_country_modifier = { name = lcs_rus_4 duration = -1 }
+		set_country_flag = lcs_gp_rus_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.30
+	title = "lcs_gp.30.t"
+	desc = "lcs_gp.30.d"
+	picture = MILITARY_CAMP_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = MOS
+			tag = RUS
+		}
+		NOT = { has_country_flag = lcs_gp_rus_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.30.a"
+		add_country_modifier = { name = lcs_rus_5 duration = -1 }
+		set_country_flag = lcs_gp_rus_5
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.31
+	title = "lcs_gp.31.t"
+	desc = "lcs_gp.31.d"
+	picture = GREAT_BUILDING_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = MNG
+			tag = QNG
+		}
+		NOT = { has_country_flag = lcs_gp_chn_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.31.a"
+		add_country_modifier = { name = lcs_chn_1 duration = -1 }
+		set_country_flag = lcs_gp_chn_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.32
+	title = "lcs_gp.32.t"
+	desc = "lcs_gp.32.d"
+	picture = GREAT_BUILDING_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = MNG
+			tag = QNG
+		}
+		NOT = { has_country_flag = lcs_gp_chn_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.32.a"
+		add_country_modifier = { name = lcs_chn_2 duration = -1 }
+		set_country_flag = lcs_gp_chn_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.33
+	title = "lcs_gp.33.t"
+	desc = "lcs_gp.33.d"
+	picture = GREAT_BUILDING_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = MNG
+			tag = QNG
+		}
+		NOT = { has_country_flag = lcs_gp_chn_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.33.a"
+		add_country_modifier = { name = lcs_chn_3 duration = -1 }
+		set_country_flag = lcs_gp_chn_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.34
+	title = "lcs_gp.34.t"
+	desc = "lcs_gp.34.d"
+	picture = GREAT_BUILDING_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = MNG
+			tag = QNG
+		}
+		NOT = { has_country_flag = lcs_gp_chn_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.34.a"
+		add_country_modifier = { name = lcs_chn_4 duration = -1 }
+		set_country_flag = lcs_gp_chn_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.35
+	title = "lcs_gp.35.t"
+	desc = "lcs_gp.35.d"
+	picture = GREAT_BUILDING_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = MNG
+			tag = QNG
+		}
+		NOT = { has_country_flag = lcs_gp_chn_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.35.a"
+		add_country_modifier = { name = lcs_chn_5 duration = -1 }
+		set_country_flag = lcs_gp_chn_5
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.36
+	title = "lcs_gp.36.t"
+	desc = "lcs_gp.36.d"
+	picture = HUSSARS_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = POL
+			tag = PLC
+		}
+		NOT = { has_country_flag = lcs_gp_pol_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.36.a"
+		add_country_modifier = { name = lcs_pol_1 duration = -1 }
+		set_country_flag = lcs_gp_pol_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.37
+	title = "lcs_gp.37.t"
+	desc = "lcs_gp.37.d"
+	picture = HUSSARS_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = POL
+			tag = PLC
+		}
+		NOT = { has_country_flag = lcs_gp_pol_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.37.a"
+		add_country_modifier = { name = lcs_pol_2 duration = -1 }
+		set_country_flag = lcs_gp_pol_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.38
+	title = "lcs_gp.38.t"
+	desc = "lcs_gp.38.d"
+	picture = HUSSARS_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = POL
+			tag = PLC
+		}
+		NOT = { has_country_flag = lcs_gp_pol_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.38.a"
+		add_country_modifier = { name = lcs_pol_3 duration = -1 }
+		set_country_flag = lcs_gp_pol_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.39
+	title = "lcs_gp.39.t"
+	desc = "lcs_gp.39.d"
+	picture = HUSSARS_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = POL
+			tag = PLC
+		}
+		NOT = { has_country_flag = lcs_gp_pol_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.39.a"
+		add_country_modifier = { name = lcs_pol_4 duration = -1 }
+		set_country_flag = lcs_gp_pol_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.40
+	title = "lcs_gp.40.t"
+	desc = "lcs_gp.40.d"
+	picture = HUSSARS_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = POL
+			tag = PLC
+		}
+		NOT = { has_country_flag = lcs_gp_pol_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.40.a"
+		add_country_modifier = { name = lcs_pol_5 duration = -1 }
+		set_country_flag = lcs_gp_pol_5
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.41
+	title = "lcs_gp.41.t"
+	desc = "lcs_gp.41.d"
+	picture = BATTLE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = SWE
+		NOT = { has_country_flag = lcs_gp_swe_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.41.a"
+		add_country_modifier = { name = lcs_swe_1 duration = -1 }
+		set_country_flag = lcs_gp_swe_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.42
+	title = "lcs_gp.42.t"
+	desc = "lcs_gp.42.d"
+	picture = BATTLE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = SWE
+		NOT = { has_country_flag = lcs_gp_swe_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.42.a"
+		add_country_modifier = { name = lcs_swe_2 duration = -1 }
+		set_country_flag = lcs_gp_swe_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.43
+	title = "lcs_gp.43.t"
+	desc = "lcs_gp.43.d"
+	picture = BATTLE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = SWE
+		NOT = { has_country_flag = lcs_gp_swe_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.43.a"
+		add_country_modifier = { name = lcs_swe_3 duration = -1 }
+		set_country_flag = lcs_gp_swe_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.44
+	title = "lcs_gp.44.t"
+	desc = "lcs_gp.44.d"
+	picture = BATTLE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = SWE
+		NOT = { has_country_flag = lcs_gp_swe_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.44.a"
+		add_country_modifier = { name = lcs_swe_4 duration = -1 }
+		set_country_flag = lcs_gp_swe_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.45
+	title = "lcs_gp.45.t"
+	desc = "lcs_gp.45.d"
+	picture = BATTLE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		tag = SWE
+		NOT = { has_country_flag = lcs_gp_swe_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.45.a"
+		add_country_modifier = { name = lcs_swe_5 duration = -1 }
+		set_country_flag = lcs_gp_swe_5
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.46
+	title = "lcs_gp.46.t"
+	desc = "lcs_gp.46.d"
+	picture = SIEGE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		}
+		NOT = { has_country_flag = lcs_gp_pru_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.46.a"
+		add_country_modifier = { name = lcs_pru_1 duration = -1 }
+		set_country_flag = lcs_gp_pru_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.47
+	title = "lcs_gp.47.t"
+	desc = "lcs_gp.47.d"
+	picture = SIEGE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		}
+		NOT = { has_country_flag = lcs_gp_pru_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.47.a"
+		add_country_modifier = { name = lcs_pru_2 duration = -1 }
+		set_country_flag = lcs_gp_pru_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.48
+	title = "lcs_gp.48.t"
+	desc = "lcs_gp.48.d"
+	picture = SIEGE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		}
+		NOT = { has_country_flag = lcs_gp_pru_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.48.a"
+		add_country_modifier = { name = lcs_pru_3 duration = -1 }
+		set_country_flag = lcs_gp_pru_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.49
+	title = "lcs_gp.49.t"
+	desc = "lcs_gp.49.d"
+	picture = SIEGE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		}
+		NOT = { has_country_flag = lcs_gp_pru_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.49.a"
+		add_country_modifier = { name = lcs_pru_4 duration = -1 }
+		set_country_flag = lcs_gp_pru_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.50
+	title = "lcs_gp.50.t"
+	desc = "lcs_gp.50.d"
+	picture = SIEGE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = BRA
+			tag = PRU
+		}
+		NOT = { has_country_flag = lcs_gp_pru_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.50.a"
+		add_country_modifier = { name = lcs_pru_5 duration = -1 }
+		set_country_flag = lcs_gp_pru_5
+	}
+}
+
