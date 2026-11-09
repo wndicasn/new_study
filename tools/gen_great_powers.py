@@ -6,6 +6,25 @@ GAME = r"D:\steam\steamapps\common\Europa Universalis IV"
 
 ERAS = [(1444, 1500), (1500, 1600), (1600, 1700), (1700, 1800), (1800, 9999)]
 
+ERAS_DEFAULT = [(1444, 1500), (1500, 1600), (1600, 1700), (1700, 1800), (1800, 9999)]
+
+
+def E(start, end, title, desc, mods, extra=None):
+    return dict(start=start, end=end, title=title, desc=desc, mods=mods, extra=extra or [])
+
+
+def norm_eras(eras):
+    out = []
+    for i, en in enumerate(eras):
+        if isinstance(en, dict):
+            out.append(en)
+            continue
+        t, d, m = en
+        st, ed = ERAS_DEFAULT[i]
+        out.append(E(st, ed, t, d, m))
+    return out
+
+
 GROUPS = [
     dict(key="fra", tags=["FRA"], name="法兰西", pic="LAND_MILITARY_eventPicture",
          opt="王国的意志不容置疑。",
@@ -50,18 +69,21 @@ GROUPS = [
               [("stability_cost_modifier", -0.10), ("administrative_efficiency", 0.05)]),
          ]),
     dict(key="tur", tags=["TUR"], name="奥斯曼", pic="CONSTANTINOPLE_eventPicture",
-         opt="帝国的意志必将延续。",
+         opt="帝国仍在，只是慢了半拍。",
          eras=[
              ("加齐的弯刀", "君士坦丁堡的城墙在重炮下崩塌。边疆战士的信仰与战利品，就是奥斯曼扩张最原始的燃料。",
               [("land_morale", 0.10), ("manpower_recovery_speed", 0.10)]),
              ("苏莱曼的法典", "苏莱曼把土地、税收与军役写进同一部法典。帝国不靠血统运转，靠的是律法与一支领薪水的常备军。",
               [("discipline", 0.05), ("administrative_efficiency", 0.05)]),
-             ("郁金香与停滞", "郁金香在伊斯坦布尔的花园里盛开，而西方的舰炮口径已经超过了帝国的城墙。盛世之下，账本正在变薄。",
-              [("build_cost", -0.10), ("stability_cost_modifier", -0.10)]),
-             ("新秩序的前夜", "尼扎姆-伊杰迪德的新军开始操练欧式队列。旧军团的既得利益与帝国的生存，只能留下一个。",
-              [("technology_cost", -0.10), ("state_maintenance_modifier", -0.05)]),
-             ("坦志麦特", "诏书颁布：无论信仰，臣民一律平等。这是帝国最后的自救——改革若失败，剩下的只有瓜分。",
-              [("administrative_efficiency", 0.10), ("technology_cost", -0.10), ("idea_cost", -0.05)]),
+             ("苏丹的深宫", "后宫、太监与禁卫军的要挟取代了御驾亲征。舰队在勒班陀折戟，而帝国的账本仍在按旧日的方式计算胜负。",
+              [("land_morale", -0.05), ("technology_cost", 0.05), ("global_tax_modifier", -0.05)]),
+             ("郁金香与停滞", "郁金香在伊斯坦布尔的花园里盛开，维也纳城下却留下了惨败的印记。西方在按新方法练兵，帝国还在数旧账。",
+              [("land_morale", -0.10), ("discipline", -0.05), ("technology_cost", 0.10),
+               ("global_tax_modifier", -0.10), ("global_unrest", 1)]),
+             ("西亚病夫", "希腊独立、埃及失控、列强环伺。疆域还在，但军队、财政与制度一同落在了时代后面。",
+              [("land_morale", -0.15), ("discipline", -0.10), ("global_tax_modifier", -0.15),
+               ("global_manpower_modifier", -0.20), ("technology_cost", 0.20),
+               ("administrative_efficiency", -0.10), ("stability_cost_modifier", 0.20), ("global_unrest", 2)]),
          ]),
     dict(key="hab", tags=["HAB"], name="奥地利", pic="COURT_eventPicture",
          opt="让哈布斯堡继续统治。",
@@ -91,19 +113,46 @@ GROUPS = [
              ("1812 年的冬天", "焦土、游击与严寒。大军团在莫斯科的灰烬里化为乌有，而俄国的军队跟进了巴黎。",
               [("manpower_recovery_speed", 0.20), ("land_morale", 0.10), ("global_manpower_modifier", 0.10)]),
          ]),
-    dict(key="chn", tags=["MNG", "QNG"], name="中华", pic="GREAT_BUILDING_eventPicture",
+    dict(key="mng", tags=["MNG"], name="明", pic="GREAT_BUILDING_eventPicture",
          opt="天朝自有天朝的章法。",
          eras=[
-             ("永乐遗产", "紫禁城的钟声犹在，宝船与朝贡体系撑起了一个以中原为中心的天下。秩序，本身就是最大的财富。",
-              [("global_tax_modifier", 0.10), ("stability_cost_modifier", -0.10)]),
-             ("白银流入", "美洲白银经马尼拉涌入东南沿海。税收从实物转向白银，海商与晋商一起，把帝国的经济拴到了全球贸易上。",
-              [("trade_efficiency", 0.10), ("global_trade_power", 0.10)]),
-             ("一条鞭法", "清丈田亩、合并税目，赋役折银。户部的账册重新变得清晰，而清晰本身就是国力的来源。",
-              [("global_tax_modifier", 0.10), ("development_cost", -0.10)]),
-             ("盛世", "人口过亿，府库充盈，疆域极盛。皇帝南巡的船队沿着运河一路南下，沿途是百年不遇的太平。",
-              [("development_cost", -0.15), ("global_tax_modifier", 0.10), ("build_cost", -0.10)]),
-             ("洋务", "江南制造总局的机器开动，蒸汽船与后膛枪被拆开、仿制、再仿制。器物可以买来，制度不行——但眼下只能先买器物。",
-              [("technology_cost", -0.10), ("build_cost", -0.10), ("production_efficiency", 0.10)]),
+             E(1444, 1500, "永乐遗产", "紫禁城的钟声犹在，宝船与朝贡体系撑起了一个以中原为中心的天下。秩序，本身就是最大的财富。",
+               [("global_tax_modifier", 0.10), ("stability_cost_modifier", -0.10)]),
+             E(1500, 1600, "土木之变", "土木堡的惨败让天子成了俘虏，京营精锐覆没。此后的朝堂以太监、党争与内帑为轴心，边患与财政一起松动。",
+               [("land_morale", -0.10), ("discipline", -0.05), ("global_tax_modifier", -0.05), ("global_unrest", 1)]),
+             E(1600, 1700, "大厦将倾", "万历数十年不朝，辽东的军饷年年拖欠。白银断流、卫所崩坏、党争不休——庞大的帝国正在从内部被蛀空，而关外的马蹄声越来越近。",
+               [("land_morale", -0.20), ("discipline", -0.10), ("global_tax_modifier", -0.20),
+                ("development_cost", 0.20), ("global_manpower_modifier", -0.25), ("manpower_recovery_speed", -0.30),
+                ("stability_cost_modifier", 0.25), ("global_unrest", 2), ("technology_cost", 0.15),
+                ("administrative_efficiency", -0.10), ("land_forcelimit_modifier", -0.20), ("build_cost", 0.15)]),
+             E(1700, 1800, "流寇与南明", "李自成的队伍与关外的铁骑同时压来。京师陷落，江南诸镇各自拥立——正统不再只有一个，而战火没有一天停过。",
+               [("land_morale", -0.15), ("global_tax_modifier", -0.20), ("global_unrest", 3),
+                ("administrative_efficiency", -0.15), ("manpower_recovery_speed", -0.20)]),
+             E(1800, 9999, "天朝残喘", "海疆洞开，白银外流，团练与厘金取代了旧的卫所与户部。帝国还在，但它已经不再能决定自己的命运。",
+               [("global_tax_modifier", -0.20), ("technology_cost", 0.25), ("build_cost", 0.15),
+                ("global_unrest", 3), ("land_morale", -0.10)]),
+         ]),
+    dict(key="qng", tags=["QNG"], name="清", pic="GREAT_BUILDING_eventPicture",
+         opt="守成，亦是一种本事。",
+         eras=[
+             E(1600, 1700, "入关", "山海关的城门打开，八旗的铁骑踏入中原。新王朝接手了旧官僚，也接手了旧难题——但它手里有一支真正能打的军队。",
+               [("land_morale", 0.10), ("discipline", 0.10), ("administrative_efficiency", 0.05)]),
+             E(1700, 1800, "康乾盛世", "人口过亿，府库充盈，疆域极盛。皇帝南巡的船队沿着运河一路南下，沿途是百年不遇的太平。",
+               [("global_tax_modifier", 0.15), ("development_cost", -0.15), ("build_cost", -0.10),
+                ("stability_cost_modifier", -0.10)]),
+             E(1800, 9999, "嘉道中衰", "白莲教、鸦片与漕运的亏空一起压来。盛世的账本已经算完，接下来是赔款、条约与割地。",
+               [("global_tax_modifier", -0.15), ("technology_cost", 0.20), ("global_unrest", 2), ("build_cost", 0.10)]),
+         ]),
+    dict(key="mch", tags=["MCH", "MJZ", "MHX", "MYR"], name="满洲", pic="HUSSARS_eventPicture",
+         opt="八旗所向，皆我疆土。",
+         eras=[
+             E(1600, 9999, "八旗", "十三副遗甲起兵，牛录与旗分把渔猎的部族编成了一支军队。骑射、赏罚与一统满洲的野心合在一起，足以撼动中原。",
+               [("land_morale", 0.20), ("discipline", 0.15), ("infantry_power", 0.20), ("cavalry_power", 0.20),
+                ("global_manpower_modifier", 0.50), ("manpower_recovery_speed", 0.50), ("global_regiment_cost", -0.40),
+                ("land_forcelimit_modifier", 0.50), ("war_exhaustion", -0.05)],
+               extra=["if = {", "\tlimit = { exists = MNG }",
+                      "\tadd_casus_belli = { target = MNG type = cb_conquest months = 240 }", "}",
+                      "add_yearly_manpower = 3", "add_army_tradition = 10"]),
          ]),
     dict(key="pol", tags=["POL", "PLC"], name="波兰", pic="HUSSARS_eventPicture",
          opt="联邦的荣耀不容侵犯。",
@@ -149,6 +198,8 @@ GROUPS = [
          ]),
 ]
 
+GROUPS = [dict(g, eras=norm_eras(g["eras"])) for g in GROUPS]
+
 LABELS = {
     "land_morale": ("陆军士气", "%"), "discipline": ("训练度", "%"),
     "infantry_power": ("步兵战斗力", "%"), "cavalry_power": ("骑兵战斗力", "%"),
@@ -166,6 +217,7 @@ LABELS = {
     "governing_capacity_modifier": ("治理容量", "%"), "global_tax_modifier": ("税收", "%"),
     "development_cost": ("发展成本", "%"), "build_cost": ("建筑花费", "%"),
     "state_maintenance_modifier": ("行政维护", "%"),
+    "global_regiment_cost": ("陆军募兵花费", "%"), "war_exhaustion": ("战争疲劳", ""),
 }
 
 
@@ -191,9 +243,9 @@ def fmt_val(v):
 ev, mod, loc_en = [], [], []
 ev.append("########################################\n"
           "# 主要国家 · 时代专属修正 (Little Code Sauce)\n"
-          "# 每个国家在 5 个时代各触发一次，进入时代后数日内自动发生\n"
+          "# 每个国家在自己所属的时代各触发一次，进入时代后数日内自动发生\n"
           "# 共有 %d 个事件 / %d 个专属修正\n"
-          "########################################\n\nnamespace = lcs_gp\n" % (len(GROUPS) * 5, len(GROUPS) * 5))
+          "########################################\n\nnamespace = lcs_gp\n" % (sum(len(g["eras"]) for g in GROUPS), sum(len(g["eras"]) for g in GROUPS)))
 mod.append("########################################\n"
            "# 主要国家 · 时代专属修正数值\n"
            "# 全部 duration = -1（永久），由 events/lcs_great_powers.txt 施加\n"
@@ -204,14 +256,16 @@ loc_cn = []  # 同一内容写两份语言文件
 
 eid = 0
 for g in GROUPS:
-    for i, (title, desc, mods) in enumerate(g["eras"]):
+    for i, e in enumerate(g["eras"]):
         eid += 1
-        start, end = ERAS[i]
+        start, end = e["start"], e["end"]
+        title, desc, mods = e["title"], e["desc"], e["mods"]
         mid = "lcs_%s_%d" % (g["key"], i + 1)
         flag = "lcs_gp_%s_%d" % (g["key"], i + 1)
         tagcond = ("\t\ttag = %s\n" % g["tags"][0]) if len(g["tags"]) == 1 else \
                   ("\t\tOR = {\n" + "".join("\t\t\ttag = %s\n" % t for t in g["tags"]) + "\t\t}\n")
         endcond = "" if end > 9000 else "\t\tNOT = { is_year = %d }\n" % end
+        xeff = "".join("\t\t%s\n" % ln for ln in e["extra"])
 
         ev.append("country_event = {\n"
                   "\tid = lcs_gp.%d\n"
@@ -230,9 +284,10 @@ for g in GROUPS:
                   "\toption = {\n"
                   "\t\tname = \"lcs_gp.%d.a\"\n"
                   "\t\tadd_country_modifier = { name = %s duration = -1 }\n"
+                  "%s"
                   "\t\tset_country_flag = %s\n"
                   "\t}\n"
-                  "}\n\n" % (eid, eid, eid, g["pic"], tagcond, flag, start, endcond, eid, mid, flag))
+                  "}\n\n" % (eid, eid, eid, g["pic"], tagcond, flag, start, endcond, eid, mid, xeff, flag))
 
         mod.append("%s = {\n%s}\n\n" % (mid, "".join("\t%s = %s\n" % (k, fmt_val(v)) for k, v in mods)))
 
@@ -268,30 +323,43 @@ print("loc lines:", body.count("\n"))
 rows = ["| 国家 | 时代 | 修正 id | 效果 |", "|---|---|---|---|"]
 eid = 0
 for g in GROUPS:
-    for i, (title, desc, mods) in enumerate(g["eras"]):
+    for i, e in enumerate(g["eras"]):
         eid += 1
-        start, end = ERAS[i]
+        start, end = e["start"], e["end"]
+        title, desc, mods = e["title"], e["desc"], e["mods"]
         span = "%d–%d" % (start, end - 1) if end < 9000 else "%d+" % start
         rows.append("| %s | %s | `lcs_%s_%d` | %s |" % (g["name"], span, g["key"], i + 1, eff_text(mods)))
 
 md = ("## 三、主要国家 · 时代专属修正（新增）\n\n"
-      "`eu4/events/lcs_great_powers.txt`，namespace `lcs_gp`：10 组国家 × 5 个时代 = 50 个事件、50 个 `duration = -1` 专属修正"
+      "`eu4/events/lcs_great_powers.txt`，namespace `lcs_gp`：%d 组国家 / %d 个事件 / %d 个 `duration = -1` 专属修正"
       "（数值在 `eu4/common/event_modifiers/zz_lcs_great_power_modifiers.txt`）。\n\n"
       "每个事件的触发条件 = 国家标签匹配 + 当前年份落在该时代区间 + 未持有该时代的 flag，`mean_time_to_happen = { days = 5 }`，"
       "进入时代后几天内自动弹出，点掉即永久生效；同一时代不会重复弹。国家若在后期才成立（如大清、大不列颠），只拿当前及之后时代的加成。\n\n"
+      "后期国家会拿到**衰退修正**：明自 1500 起逐级下滑、1600 年「大厦将倾」为大衰退，奥斯曼自 1600 年起停滞、1800 年「西亚病夫」，清 1800 年「嘉道中衰」；"
+      "数值为负是刻意的历史模拟。满洲（建州/海西/野人女真/满洲）在 1600 年后获得「八旗」超强修正，并对明取得征服宣战理由。\n\n"
       "每个修正都作用于**拥有该 tag 的国家本身**，玩家和 AI 一视同仁；只想给自己用，就在对应事件的 `trigger` 里加一行 `ai = no`。\n\n"
       + "\n".join(rows) + "\n\n"
       "生成器：`tools/gen_great_powers.py`（改数值直接改 `GROUPS`，重跑即可整套重生成）。\n")
 
+_nev = sum(len(g["eras"]) for g in GROUPS)
+import re as _re
+_it = iter([str(len(GROUPS)), str(_nev), str(_nev)])
+md = _re.sub(r"%d", lambda _m: next(_it), md)
+
 readme = r"D:\DSH\new_study\README.md"
 if os.path.exists(readme):
     txt = open(readme, encoding="utf-8").read()
-    if "## 三、主要国家" not in txt:
-        txt = txt.replace("## 四、备注", "## 五、备注")
-        txt = txt.replace("## 三、还原", "## 四、还原")
-        txt = txt.replace("## 四、还原", md + "\n## 四、还原")
-        open(readme, "w", encoding="utf-8", newline="\n").write(txt)
-        print("README updated")
+    i = txt.find("## 三、主要国家")
+    j = txt.find("## 四、还原")
+    if i >= 0 and j > i:
+        txt = txt[:i] + md + "\n" + txt[j:]
+        print("README section rebuilt")
     else:
-        print("README already has the section")
-
+        if "## 四、备注" in txt:
+            txt = txt.replace("## 四、备注", "## 五、备注")
+        if "## 三、还原" in txt:
+            txt = txt.replace("## 三、还原", "## 四、还原")
+        k2 = txt.find("## 四、还原")
+        txt = (txt[:k2] + md + "\n" + txt[k2:]) if k2 >= 0 else (txt + "\n" + md)
+        print("README section inserted")
+    open(readme, "w", encoding="utf-8", newline="\n").write(txt)
