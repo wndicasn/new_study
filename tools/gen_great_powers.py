@@ -182,19 +182,36 @@ GROUPS = [
              ("贝尔纳多特", "一位法国元帅成了瑞典的王储，旧王朝在炮声中落幕，新王朝带着拿破仑的操典走上战场。",
               [("land_morale", 0.10), ("discipline", 0.05)]),
          ]),
-    dict(key="pru", tags=["BRA", "PRU"], name="普鲁士", pic="SIEGE_eventPicture",
+    dict(key="bra", tags=["BRA"], name="勃兰登堡", pic="MILITARY_CAMP_eventPicture",
+         opt="选侯的军队，先要活下去。",
+         eras=[
+             E(1444, 1500, "选侯的军队", "贫瘠的沙地与分散的领地，让勃兰登堡只能靠一支常备军撑住场面。霍亨索伦家的算盘很简单：先站住，再往前走。",
+               [("land_morale", 0.10), ("discipline", 0.05), ("manpower_recovery_speed", 0.15),
+                ("ae_impact", -0.20), ("improve_relation_modifier", 0.15)]),
+             E(1500, 1600, "霍亨索伦的家业", "宗教改革的风从维滕贝格吹出，选侯把教会的地产收进自己的账册。北德的诸侯还在观望，勃兰登堡已经在扩军。",
+               [("land_morale", 0.10), ("discipline", 0.10), ("infantry_power", 0.10),
+                ("global_manpower_modifier", 0.25), ("ae_impact", -0.25), ("technology_cost", -0.05)]),
+             E(1600, 9999, "北方的军械库", "如果普鲁士始终没有立起来，勃兰登堡自己就得当那把刀。征兵区、军械所与一支不靠雇佣兵的常备军，把沙地变成了兵营。",
+               [("discipline", 0.10), ("land_morale", 0.10), ("land_forcelimit_modifier", 0.25),
+                ("ae_impact", -0.15), ("global_tax_modifier", 0.10)]),
+         ]),
+    dict(key="pru", tags=["PRU"], name="普鲁士", pic="SIEGE_eventPicture",
          opt="纪律就是一切。",
          eras=[
-             ("容克与军职", "勃兰登堡的容克地主把土地与军职绑在一起。军队从此有了根，而根长在土地里。",
-              [("land_morale", 0.05), ("manpower_recovery_speed", 0.10)]),
-             ("普鲁士公国", "波罗的海边建立起第一支真正意义上的常备军。小国要活下去，只能比大国更早起床。",
-              [("discipline", 0.05), ("infantry_power", 0.05)]),
-             ("大选帝侯的常备军", "柏林在强国林立中保住了自己的位置——靠的不是疆域，而是一支随时能出动的军队。",
-              [("discipline", 0.05), ("land_forcelimit_modifier", 0.10)]),
-             ("斜线战术", "腓特烈的斜线战术：以少打多，靠的是操练、纪律与速度。普鲁士的军队是一种工艺，不是一种职业。",
-              [("discipline", 0.10), ("land_morale", 0.10)]),
-             ("沙恩霍斯特改革", "征兵制、总参谋部、荣誉勋章与军官教育。军队不再是国王的工具，而成了民族的学校。",
-              [("discipline", 0.05), ("manpower_recovery_speed", 0.20), ("administrative_efficiency", 0.05)]),
+             E(1500, 1600, "普鲁士公国", "条顿骑士团的残部世俗化，公国在波罗的海边立起第一支真正意义上的常备军。小国要活下去，只能比大国更早起床。",
+               [("discipline", 0.10), ("land_morale", 0.10), ("infantry_power", 0.10),
+                ("ae_impact", 0.10), ("max_absolutism", 5), ("legitimacy", 1)]),
+             E(1600, 1700, "大选帝侯的常备军", "柏林在强国林立中保住了自己的位置——靠的不是疆域，而是一支随时能出动的军队，和一个说了算的宫廷。",
+               [("discipline", 0.10), ("land_morale", 0.10), ("infantry_power", 0.15),
+                ("global_manpower_modifier", 0.20), ("ae_impact", 0.15), ("max_absolutism", 10),
+                ("all_power_cost", -0.05)]),
+             E(1700, 1800, "腓特烈的斜线战术", "斜线战术：以少打多，靠的是操练、纪律与速度。军队成了国王的手艺，而邻国开始把普鲁士的每一次扩军都记在账上。",
+               [("discipline", 0.15), ("land_morale", 0.15), ("infantry_power", 0.20), ("artillery_power", 0.05),
+                ("ae_impact", 0.20), ("max_absolutism", 10), ("yearly_absolutism", 0.5),
+                ("all_power_cost", -0.05)]),
+             E(1800, 9999, "沙恩霍斯特改革", "耶拿的惨败之后，征兵制、总参谋部与军官教育把军队从国王的工具改造成民族的学校。重建的普鲁士比从前更危险。",
+               [("discipline", 0.10), ("land_morale", 0.10), ("manpower_recovery_speed", 0.20),
+                ("infantry_power", 0.10), ("ae_impact", 0.15), ("max_absolutism", 5)]),
          ]),
 ]
 
@@ -218,6 +235,9 @@ LABELS = {
     "development_cost": ("发展成本", "%"), "build_cost": ("建筑花费", "%"),
     "state_maintenance_modifier": ("行政维护", "%"),
     "global_regiment_cost": ("陆军募兵花费", "%"), "war_exhaustion": ("战争疲劳", ""),
+    "ae_impact": ("侵略扩张影响", "%"), "max_absolutism": ("最大专制主义", ""),
+    "yearly_absolutism": ("每年专制主义", ""), "all_power_cost": ("全点数花费", "%"),
+    "legitimacy": ("每年正统性", ""),
 }
 
 
@@ -337,6 +357,7 @@ md = ("## 三、主要国家 · 时代专属修正（新增）\n\n"
       "进入时代后几天内自动弹出，点掉即永久生效；同一时代不会重复弹。国家若在后期才成立（如大清、大不列颠），只拿当前及之后时代的加成。\n\n"
       "后期国家会拿到**衰退修正**：明自 1500 起逐级下滑、1600 年「大厦将倾」为大衰退，奥斯曼自 1600 年起停滞、1800 年「西亚病夫」，清 1800 年「嘉道中衰」；"
       "数值为负是刻意的历史模拟。满洲（建州/海西/野人女真/满洲）在 1600 年后获得「八旗」超强修正，并对明取得征服宣战理由。\n\n"
+      "勃兰登堡（BRA）在成军前拿到强力的陆军与减 AE 修正，帮 AI 活到能成立普鲁士；普鲁士（PRU）改成陆军质量 + 君主系统（正统性 / 最大专制 / 全点数花费）的强权，但背负 +10~20% 的侵略扩张影响——打得越快，邻国结的盟越多。\n\n"
       "每个修正都作用于**拥有该 tag 的国家本身**，玩家和 AI 一视同仁；只想给自己用，就在对应事件的 `trigger` 里加一行 `ai = no`。\n\n"
       + "\n".join(rows) + "\n\n"
       "生成器：`tools/gen_great_powers.py`（改数值直接改 `GROUPS`，重跑即可整套重生成）。\n")
