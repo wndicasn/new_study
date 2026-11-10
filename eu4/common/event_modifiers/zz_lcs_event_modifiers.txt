@@ -1,14 +1,54 @@
 ########################################
 # 自定义国家修正 (Little Code Sauce)
-# 生效方式：事件 lcs.1 / lcs.2 里的 add_country_modifier
+# 生效方式：事件 lcs.1/lcs.2/lcs.3/lcs.4/lcs.5 里的 add_country_modifier
 # 想改数值，直接改下面的数字即可（-0.80 = -80%）
 ########################################
 
+# 开局恩泽（仅玩家，永久）
 lcs_cheat_modifier = {
 	core_creation = -0.80                  # 核心化花费 -80%
-	development_cost = -0.70               # 发展成本 -70%（原 -50%，再叠 -20%）
 	years_of_nationalism = -20             # 分离主义年限 -20
 	global_regiment_recruit_speed = -0.50  # 陆军募兵时间 -50%
 	culture_conversion_time = -0.90        # 文化转变时间 -90%
 	culture_conversion_cost = -0.80        # 文化转变花费 -80%
+}
+
+# 1550 营造改革（玩家与 AI 同享，永久）
+# amount_of_*        = 该特殊兵种可直接征召的数量（界面词条 "Possible XXX"）
+# allowed_*_fraction = 该特殊兵种可占陆军/海军上限的比例加成（界面词条 "XXX Force Limit"）
+lcs_1550_reform_modifier = {
+	development_cost = -0.20   # 发展成本 -20%
+	build_time = -0.70         # 建造时间 -70%
+	build_cost = -0.50         # 建筑花费 -50%
+
+	# 陆军特殊兵种
+	allowed_musketeer_fraction = 0.50   # 法兰西火枪手
+	amount_of_musketeers = 2.0
+	allowed_tercio_fraction = 0.50      # 西班牙方阵
+	amount_of_tercio = 2.0
+	allowed_samurai_fraction = 0.50     # 日本武士
+	amount_of_samurai = 2.0
+	allowed_qizilbash_fraction = 0.50   # 奇兹尔巴什
+	amount_of_qizilbash = 2.0
+	allowed_mamluks_fraction = 0.50     # 马穆鲁克
+	amount_of_mamluks = 2.0
+	allowed_marine_fraction = 0.50      # 陆战队
+	amount_of_banners = 0.50            # 八旗
+	amount_of_streltsy = 0.50           # 射击军
+	amount_of_cawa = 0.50               # 卡瓦
+	amount_of_hussars = 0.50            # 骠骑兵
+
+	# 海军特殊舰船
+	allowed_voc_indiamen_fraction = 0.50  # 荷兰东印度商船
+	amount_of_voc_indiamen = 2.0
+	allowed_geobukseon_fraction = 0.50    # 龟船
+	amount_of_geobukseon = 2.0
+	allowed_man_of_war_fraction = 0.50    # 战舰
+	amount_of_man_of_war = 2.0
+	allowed_galleon_fraction = 0.50       # 盖伦帆船
+	amount_of_galleon = 2.0
+	allowed_galleass_fraction = 0.50      # 桨帆炮船
+	amount_of_galleass = 2.0
+	allowed_caravel_fraction = 0.50       # 卡拉维尔帆船
+	amount_of_caravel = 2.0
 }

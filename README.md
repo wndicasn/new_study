@@ -28,13 +28,15 @@
 
 - `lcs.1`：`major = yes`、`fire_only_once = yes`、`trigger = { ai = no, NOT = { has_country_modifier = lcs_cheat_modifier } }`、`mean_time_to_happen = { days = 1 }` —— 开局几天自动弹。
 - `lcs.2`：`is_triggered_only = yes`，同效果，用于控制台补发。
+- `lcs.3`：`is_year = 1550` 起弹一次的玩家事件，挂上 `lcs_1550_reform_modifier`。
+- `lcs.4`：`hide_window = yes` 的 AI 事件，1550 年起全世界 AI 静默获得同一修正（之后才成立的国家也会拿到）。
+- `lcs.5`：`is_triggered_only`，控制台 `event lcs.5` 一次性补发开局恩泽 + 营造改革。
 
 效果（`lcs_cheat_modifier`，`duration = -1` 永久）：
 
 | 修正 | 数值 | 含义 |
 |---|---|---|
 | `core_creation` | -0.80 | 核心化花费 -80% |
-| `development_cost` | -0.70 | 发展成本 -70%（原 -50% 再叠 -20%） |
 | `years_of_nationalism` | -20 | 分离主义年数 -20 |
 | `global_regiment_recruit_speed` | -0.50 | 募兵时间 -50% |
 | `culture_conversion_time` | -0.90 | 文化转变时间 -90% |
@@ -44,6 +46,22 @@
 
 触发方式：控制台需要 Steam 启动项 `-debug_mode`，进游戏按 `~` 输入 `event lcs.1` 或 `event lcs.2`。
 事件与铁人/成就互斥（有 mod 本来也不出成就）。
+
+### 1550 年营造改革（`lcs_1550_reform_modifier`，玩家与 AI 同享，`duration = -1`）
+
+发展成本的部分从开局事件挪到了 1550 年这一档，并附带建造与特殊兵种上限。
+
+| 修正 | 数值 | 含义 |
+|---|---|---|
+| `development_cost` | -0.20 | 发展成本 -20% |
+| `build_time` | -0.70 | 建造时间 -70% |
+| `build_cost` | -0.50 | 建筑花费 -50% |
+| `allowed_musketeer_fraction` / `allowed_tercio_fraction` / `allowed_samurai_fraction` / `allowed_qizilbash_fraction` / `allowed_mamluks_fraction` / `allowed_marine_fraction` | 0.50 | 火枪手、方阵、武士、奇兹尔巴什、马穆鲁克、陆战队 可占陆军上限 +50% |
+| `amount_of_musketeers` / `amount_of_tercio` / `amount_of_samurai` / `amount_of_qizilbash` / `amount_of_mamluks` / `amount_of_banners` / `amount_of_streltsy` / `amount_of_cawa` / `amount_of_hussars` | 2.0 | 对应特殊兵种可直接征召数量 +2 |
+| `allowed_voc_indiamen_fraction` / `allowed_geobukseon_fraction` / `allowed_man_of_war_fraction` / `allowed_galleon_fraction` / `allowed_galleass_fraction` / `allowed_caravel_fraction` | 0.50 | 东印度商船、龟船、战舰、盖伦帆船、桨帆炮船、卡拉维尔 可占海军上限 +50% |
+| `amount_of_voc_indiamen` / `amount_of_geobukseon` / `amount_of_man_of_war` / `amount_of_galleon` / `amount_of_galleass` / `amount_of_caravel` | 2.0 | 对应特殊舰船可直接征召数量 +2 |
+
+实现说明：特殊兵种上限只由 `amount_of_*`（可直接征召数量，界面词条 "Possible XXX"）与 `allowed_*_fraction`（占陆军/海军上限的比例，界面词条 "XXX Force Limit"）两类修正控制，基础值硬编码在 exe 中，脚本层只能叠加修正（参考 `common/event_modifiers/02_test_modifiers.txt` 的完整键表）。AI 的征召倾向没有脚本开关——`common/ai_army/` 只作用于行省层面，`common/units_display/00_units_display.txt` 只调步/骑/炮比例——所以"提高 AI 征召特殊兵种"是通过抬高上限 + 降低建造花费实现的。
 
 ## 二、极难（Very Hard）难度 AI 修正改写
 

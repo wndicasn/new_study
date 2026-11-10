@@ -1,7 +1,10 @@
 ########################################
 # 自定义事件 (Little Code Sauce)
 # lcs.1 : 开局自动弹出（仅玩家），永久给予国家修正
-# lcs.2 : 备用，控制台 'event lcs.2' 随时补发
+# lcs.2 : 备用，控制台 'event lcs.2' 补发开局恩泽
+# lcs.3 : 1550 年起玩家弹出，给予营造改革修正
+# lcs.4 : 1550 年起 AI 静默获得同一修正（含后来成立的国家）
+# lcs.5 : 备用，控制台 'event lcs.5' 一次性补发全部修正
 ########################################
 
 namespace = lcs
@@ -47,6 +50,85 @@ country_event = {
 		name = "lcs.1.a"
 		add_country_modifier = {
 			name = "lcs_cheat_modifier"
+			duration = -1
+		}
+	}
+}
+
+# 1550 年：玩家弹出营造改革
+country_event = {
+	id = lcs.3
+	title = "lcs.3.t"
+	desc = "lcs.3.d"
+	picture = GREAT_BUILDING_eventPicture
+
+	major = yes
+	fire_only_once = yes
+
+	trigger = {
+		ai = no
+		is_year = 1550
+		NOT = { has_country_modifier = lcs_1550_reform_modifier }
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = "lcs.3.a"
+		add_country_modifier = {
+			name = "lcs_1550_reform_modifier"
+			duration = -1
+		}
+	}
+}
+
+# 1550 年：AI 静默拿到同一份营造改革（不弹窗、无历史记录刷屏）
+country_event = {
+	id = lcs.4
+	title = "lcs.3.t"
+	desc = "lcs.3.d"
+	picture = GREAT_BUILDING_eventPicture
+
+	hide_window = yes
+
+	trigger = {
+		ai = yes
+		is_year = 1550
+		NOT = { has_country_modifier = lcs_1550_reform_modifier }
+	}
+
+	mean_time_to_happen = {
+		months = 1
+	}
+
+	option = {
+		name = "lcs.3.a"
+		add_country_modifier = {
+			name = "lcs_1550_reform_modifier"
+			duration = -1
+		}
+	}
+}
+
+# 备用事件：控制台 'event lcs.5' 一次性补发两份修正（测试用）
+country_event = {
+	id = lcs.5
+	title = "lcs.1.t"
+	desc = "lcs.1.d"
+	picture = FARMING_eventPicture
+
+	is_triggered_only = yes
+
+	option = {
+		name = "lcs.1.a"
+		add_country_modifier = {
+			name = "lcs_cheat_modifier"
+			duration = -1
+		}
+		add_country_modifier = {
+			name = "lcs_1550_reform_modifier"
 			duration = -1
 		}
 	}
