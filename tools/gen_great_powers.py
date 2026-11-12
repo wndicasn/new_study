@@ -213,9 +213,49 @@ GROUPS = [
                [("discipline", 0.10), ("land_morale", 0.10), ("manpower_recovery_speed", 0.20),
                 ("infantry_power", 0.10), ("ae_impact", 0.15), ("max_absolutism", 5)]),
          ]),
+    dict(key="ned", tags=["HOL", "NED"], name="尼德兰", pic="NAVAL_MILITARY_eventPicture",
+         opt="低地人算得清账，也算得清枪口该指向哪儿。",
+         eras=[
+             E(1444, 1500, "市镇与城垣", "低地的财富堆在城墙后面。佛兰德斯的织工、布拉班特的商人，一个个自治市镇凑钱雇人、修墙、挖壕——这片土地从来不是靠人多，靠的是谁能把城守住。",
+               [("defensiveness", 0.10), ("land_morale", 0.05), ("global_regiment_cost", -0.05),
+                ("merc_maintenance_modifier", -0.10)]),
+             E(1500, 1600, "低地雇佣兵", "勃艮第的遗产换了主人，低地成了哈布斯堡的钱袋。钱袋的好处是能雇最贵的兵：瑞士长枪、德意志火绳枪，打完仗就结账走人。",
+               [("infantry_power", 0.05), ("discipline", 0.03), ("defensiveness", 0.15),
+                ("merc_maintenance_modifier", -0.15)]),
+             E(1600, 1700, "荷兰学派", "莫里茨把军队拆成一百五十人的连，统一操典，排枪齐射；斯蒂文把围城算成一门数学。这套东西后来被古斯塔夫和克伦威尔学了去——荷兰人不以野战闻名，但他们定义了什么叫操练。",
+               [("discipline", 0.05), ("infantry_power", 0.10), ("land_morale", 0.10),
+                ("siege_ability", 0.10), ("defensiveness", 0.25), ("drill_gain_modifier", 0.50),
+                ("drill_decay_modifier", -0.25), ("land_forcelimit_modifier", 0.10)]),
+             E(1700, 1800, "屏障要塞", "共和国把国防外包给了石墙和条约：屏障要塞交给奥地利，水线留给自己的工兵。守得住，但打不出去——1713 年之后的荷兰陆军，账面上还在，营里已经没人了。",
+               [("defensiveness", 0.30), ("fort_maintenance_modifier", -0.25), ("siege_ability", 0.05),
+                ("land_morale", -0.05), ("discipline", -0.03), ("land_forcelimit_modifier", -0.10)]),
+             E(1800, 9999, "王国的新军", "巴达维亚共和国与威廉一世的王国重新拉起一支近代军队。1831 年十日出征，荷兰人证明自己还能打——只是此后低地再没当过陆军强国。",
+               [("discipline", 0.05), ("land_morale", 0.05), ("infantry_power", 0.05),
+                ("land_forcelimit_modifier", 0.10)]),
+         ]),
 ]
 
 GROUPS = [dict(g, eras=norm_eras(g["eras"])) for g in GROUPS]
+
+EXTRA_MODS = [
+    dict(host="lcs_ned_3", mid="lcs_ned_navy", name="尼德兰 · 海上马车夫",
+         desc="船坞连成一片，货还没卸完又装出港；陆战队随舰而行，攻城时先搭梯子。",
+         mods=[("global_ship_recruit_speed", -0.90), ("infantry_fire", 1),
+               ("regiment_manpower_usage", -0.40), ("assault_fort_ability", 0.50)]),
+    dict(host="lcs_ned_3", mid="lcs_ned_marine", name="尼德兰 · 陆战队操典",
+         desc="登船是水兵，上岸是步兵——按陆军操典训练的海军陆战队。",
+         mods=[("discipline", 0.10)], marine=True),
+]
+
+SPECIALS = [
+    dict(key="ned_peak", mid="lcs_ned_peak", name="尼德兰", title="操典与围城",
+         tags=["HOL", "NED"], year=1570, months=600, pic="SIEGE_eventPicture",
+         desc="1570 年代的尼德兰正处在八十年战争最吃劲的年份：西班牙的大军压境，共和国把每一分钱都花在墙、壕和操练场上。莫里茨与斯蒂文的工兵在泥地里算出了一套让整个欧洲后来都在模仿的战争方法。",
+         opt="把城墙算清楚，把枪练熟。",
+         mods=[("defensiveness", 0.50), ("siege_ability", 0.40), ("global_sailors_modifier", 1.00)]),
+]
+
+N_EVENTS = sum(len(g["eras"]) for g in GROUPS) + len(SPECIALS)
 
 LABELS = {
     "land_morale": ("陆军士气", "%"), "discipline": ("训练度", "%"),
@@ -238,6 +278,14 @@ LABELS = {
     "ae_impact": ("侵略扩张影响", "%"), "max_absolutism": ("最大专制主义", ""),
     "yearly_absolutism": ("每年专制主义", ""), "all_power_cost": ("全点数花费", "%"),
     "legitimacy": ("每年正统性", ""),
+    "defensiveness": ("防御", "%"), "siege_ability": ("攻城能力", "%"),
+    "drill_gain_modifier": ("操练获取", "%"), "drill_decay_modifier": ("操练损耗", "%"),
+    "fort_maintenance_modifier": ("要塞维护费", "%"),
+    "merc_maintenance_modifier": ("雇佣兵维护费", "%"),
+    "global_ship_recruit_speed": ("海军建造速度", "%"),
+    "infantry_fire": ("步兵火力", ""), "regiment_manpower_usage": ("部队人力花费", "%"),
+    "assault_fort_ability": ("强攻能力", "%"),
+    "global_sailors_modifier": ("水手", "%"),
 }
 
 
@@ -265,7 +313,7 @@ ev.append("########################################\n"
           "# 主要国家 · 时代专属修正 (Little Code Sauce)\n"
           "# 每个国家在自己所属的时代各触发一次，进入时代后数日内自动发生\n"
           "# 共有 %d 个事件 / %d 个专属修正\n"
-          "########################################\n\nnamespace = lcs_gp\n" % (sum(len(g["eras"]) for g in GROUPS), sum(len(g["eras"]) for g in GROUPS)))
+          "########################################\n\nnamespace = lcs_gp\n" % (N_EVENTS, N_EVENTS))
 mod.append("########################################\n"
            "# 主要国家 · 时代专属修正数值\n"
            "# 全部 duration = -1（永久），由 events/lcs_great_powers.txt 施加\n"
@@ -317,6 +365,52 @@ for g in GROUPS:
         loc_en.append(' %s:0 "%s · %s"' % (mid, g["name"], title))
         loc_en.append(' desc_%s:0 "%s"' % (mid, eff_text(mods)))
 
+# ---------- 附加：宿主修正之外的追加修正（海军 / 陆战队） ----------
+for _ex in EXTRA_MODS:
+    _needle = "add_country_modifier = { name = %s duration = -1 }" % _ex["host"]
+    _addition = "".join("\n\t\tadd_country_modifier = { name = %s duration = -1 }" % _ex["mid"])
+    for _i in range(len(ev)):
+        if _needle in ev[_i]:
+            ev[_i] = ev[_i].replace(_needle, _needle + _addition)
+            break
+    _body = "".join("\t%s = %s\n" % (k, "yes" if v is True else fmt_val(v)) for k, v in _ex["mods"])
+    if _ex.get("marine"):
+        _body += "\tis_marine_modifier = yes\n"
+    mod.append("%s = {\n%s}\n\n" % (_ex["mid"], _body))
+    loc_en.append(' %s:0 "%s"' % (_ex["mid"], _ex["name"]))
+    loc_en.append(' desc_%s:0 "%s%s"' % (_ex["mid"], eff_text(_ex["mods"]), "（仅海军陆战队）" if _ex.get("marine") else ""))
+
+# ---------- 附加：一次性限时事件（1570 尼德兰巅峰） ----------
+for _sp in SPECIALS:
+    eid += 1
+    _tagcond = "\t\tOR = {\n" + "".join("\t\t\ttag = %s\n" % t for t in _sp["tags"]) + "\t\t}\n"
+    ev.append("country_event = {\n"
+              "\tid = lcs_gp.%d\n"
+              "\ttitle = \"lcs_gp.%d.t\"\n"
+              "\tdesc = \"lcs_gp.%d.d\"\n"
+              "\tpicture = %s\n"
+              "\tmajor = yes\n"
+              "\tfire_only_once = yes\n"
+              "\ttrigger = {\n"
+              "%s"
+              "\t\tNOT = { has_country_flag = %s }\n"
+              "\t\tis_year = %d\n"
+              "\t}\n"
+              "\tmean_time_to_happen = { days = 5 }\n"
+              "\toption = {\n"
+              "\t\tname = \"lcs_gp.%d.a\"\n"
+              "\t\tadd_country_modifier = { name = %s duration = %d }\n"
+              "\t\tset_country_flag = %s\n"
+              "\t}\n"
+              "}\n\n" % (eid, eid, eid, _sp["pic"], _tagcond, _sp["mid"], _sp["year"],
+                         eid, _sp["mid"], _sp["months"], _sp["mid"]))
+    mod.append("%s = {\n%s}\n\n" % (_sp["mid"], "".join("\t%s = %s\n" % (k, fmt_val(v)) for k, v in _sp["mods"])))
+    loc_en.append(' lcs_gp.%d.t:0 "%s · %s"' % (eid, _sp["name"], _sp["title"]))
+    loc_en.append(' lcs_gp.%d.d:0 "%s"' % (eid, _sp["desc"]))
+    loc_en.append(' lcs_gp.%d.a:0 "%s"' % (eid, _sp["opt"]))
+    loc_en.append(' %s:0 "%s · %s"' % (_sp["mid"], _sp["name"], _sp["title"]))
+    loc_en.append(' desc_%s:0 "%s（持续 %d 年）"' % (_sp["mid"], eff_text(_sp["mods"]), _sp["months"] // 12))
+
 files = []
 files.append((os.path.join(GAME, "events", "lcs_great_powers.txt"), "\n".join(ev)))
 files.append((os.path.join(GAME, "common", "event_modifiers", "zz_lcs_great_power_modifiers.txt"), "\n".join(mod)))
@@ -350,6 +444,14 @@ for g in GROUPS:
         span = "%d–%d" % (start, end - 1) if end < 9000 else "%d+" % start
         rows.append("| %s | %s | `lcs_%s_%d` | %s |" % (g["name"], span, g["key"], i + 1, eff_text(mods)))
 
+for _ex in EXTRA_MODS:
+    rows.append("| %s | 随 `%s` 生效 | `%s` | %s%s |" % (
+        _ex["name"], _ex["host"], _ex["mid"], eff_text(_ex["mods"]),
+        "（仅海军陆战队）" if _ex.get("marine") else ""))
+for _sp in SPECIALS:
+    rows.append("| %s · %s | %d 起（持续 %d 年） | `%s` | %s |" % (
+        _sp["name"], _sp["title"], _sp["year"], _sp["months"] // 12, _sp["mid"], eff_text(_sp["mods"])))
+
 md = ("## 三、主要国家 · 时代专属修正（新增）\n\n"
       "`eu4/events/lcs_great_powers.txt`，namespace `lcs_gp`：%d 组国家 / %d 个事件 / %d 个 `duration = -1` 专属修正"
       "（数值在 `eu4/common/event_modifiers/zz_lcs_great_power_modifiers.txt`）。\n\n"
@@ -362,10 +464,18 @@ md = ("## 三、主要国家 · 时代专属修正（新增）\n\n"
       + "\n".join(rows) + "\n\n"
       "生成器：`tools/gen_great_powers.py`（改数值直接改 `GROUPS`，重跑即可整套重生成）。\n")
 
-_nev = sum(len(g["eras"]) for g in GROUPS)
+_nev = N_EVENTS
 import re as _re
 _it = iter([str(len(GROUPS)), str(_nev), str(_nev)])
 md = _re.sub(r"%d", lambda _m: next(_it), md)
+
+_ned = ("尼德兰（HOL / NED）五档走的是「小而精的工程化军队」这条史实线：早期靠市镇城防与雇佣兵，"
+        "1600 年莫里茨改革到顶（纪律 / 攻城 / 防御 / 操练），1713 年后转为屏障要塞（守得住、打不出去），"
+        "1800 年后回补为王国新军。1600 年档额外附带两个修正：`lcs_ned_navy`（海军建造速度 -90%、步兵火力 +1、"
+        "部队人力花费 -40%、强攻能力 +50%）与 `lcs_ned_marine`（海军陆战队专属 +10% 训练度，"
+        "用 `is_marine_modifier = yes` 限定只作用于陆战队）。另外 1570 年会单独弹一次限时事件 `lcs_ned_peak`"
+        "（防御 +50%、攻城 +40%、水手 +100%，持续 50 年 = 600 个月）。\n\n")
+md = md.replace("生成器：", _ned + "生成器：")
 
 readme = r"D:\DSH\new_study\README.md"
 if os.path.exists(readme):

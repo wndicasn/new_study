@@ -17,6 +17,7 @@
 | `eu4/localisation/lcs_gp_l_simp_chinese.yml` | `Europa Universalis IV\localisation\lcs_gp_l_simp_chinese.yml` |
 | `tools/gen_great_powers.py` | 生成器，不在游戏目录内 |
 | `eu4/common/static_modifiers/00_static_modifiers.txt` | `Europa Universalis IV\common\static_modifiers\00_static_modifiers.txt` |
+| `eu4/common/defines.lua` | `Europa Universalis IV\common\defines.lua`（只改了一行 `MIN_RECRUIT_TIME_MODIFIER`） |
 | `workshop/Very_hard_ai_xorme_ai__3322593885/common/static_modifiers/xorme_static_modifiers.txt` | `steamapps\workshop\content\236850\3322593885\common\static_modifiers\xorme_static_modifiers.txt`（实际生效的那份） |
 | `workshop/Xorme_AI__2451296932/common/static_modifiers/xorme_static_modifiers.txt` | `steamapps\workshop\content\236850\2451296932\common\static_modifiers\xorme_static_modifiers.txt`（同名文件被上面那份覆盖，属备用） |
 
@@ -91,7 +92,7 @@
 
 ## 三、主要国家 · 时代专属修正（新增）
 
-`eu4/events/lcs_great_powers.txt`，namespace `lcs_gp`：13 组国家 / 56 个事件 / 56 个 `duration = -1` 专属修正（数值在 `eu4/common/event_modifiers/zz_lcs_great_power_modifiers.txt`）。
+`eu4/events/lcs_great_powers.txt`，namespace `lcs_gp`：14 组国家 / 62 个事件 / 62 个 `duration = -1` 专属修正（数值在 `eu4/common/event_modifiers/zz_lcs_great_power_modifiers.txt`）。
 
 每个事件的触发条件 = 国家标签匹配 + 当前年份落在该时代区间 + 未持有该时代的 flag，`mean_time_to_happen = { days = 5 }`，进入时代后几天内自动弹出，点掉即永久生效；同一时代不会重复弹。国家若在后期才成立（如大清、大不列颠），只拿当前及之后时代的加成。
 
@@ -159,17 +160,29 @@
 | 普鲁士 | 1600–1699 | `lcs_pru_2` | 训练度 +10%；陆军士气 +10%；步兵战斗力 +15%；人力上限 +20%；侵略扩张影响 +15%；最大专制主义 +10；全点数花费 -5% |
 | 普鲁士 | 1700–1799 | `lcs_pru_3` | 训练度 +15%；陆军士气 +15%；步兵战斗力 +20%；炮兵战斗力 +5%；侵略扩张影响 +20%；最大专制主义 +10；每年专制主义 +0.5；全点数花费 -5% |
 | 普鲁士 | 1800+ | `lcs_pru_4` | 训练度 +10%；陆军士气 +10%；人力恢复 +20%；步兵战斗力 +10%；侵略扩张影响 +15%；最大专制主义 +5 |
+| 尼德兰 | 1444–1499 | `lcs_ned_1` | 防御 +10%；陆军士气 +5%；陆军募兵花费 -5%；雇佣兵维护费 -10% |
+| 尼德兰 | 1500–1599 | `lcs_ned_2` | 步兵战斗力 +5%；训练度 +3%；防御 +15%；雇佣兵维护费 -15% |
+| 尼德兰 | 1600–1699 | `lcs_ned_3` | 训练度 +5%；步兵战斗力 +10%；陆军士气 +10%；攻城能力 +10%；防御 +25%；操练获取 +50%；操练损耗 -25%；陆军上限 +10% |
+| 尼德兰 | 1700–1799 | `lcs_ned_4` | 防御 +30%；要塞维护费 -25%；攻城能力 +5%；陆军士气 -5%；训练度 -3%；陆军上限 -10% |
+| 尼德兰 | 1800+ | `lcs_ned_5` | 训练度 +5%；陆军士气 +5%；步兵战斗力 +5%；陆军上限 +10% |
+| 尼德兰 · 海上马车夫 | 随 `lcs_ned_3` 生效 | `lcs_ned_navy` | 海军建造速度 -90%；步兵火力 +1；部队人力花费 -40%；强攻能力 +50% |
+| 尼德兰 · 陆战队操典 | 随 `lcs_ned_3` 生效 | `lcs_ned_marine` | 训练度 +10%（仅海军陆战队） |
+| 尼德兰 · 操典与围城 | 1570 起（持续 50 年） | `lcs_ned_peak` | 防御 +50%；攻城能力 +40%；水手 +100% |
+
+尼德兰（HOL / NED）五档走的是「小而精的工程化军队」这条史实线：早期靠市镇城防与雇佣兵，1600 年莫里茨改革到顶（纪律 / 攻城 / 防御 / 操练），1713 年后转为屏障要塞（守得住、打不出去），1800 年后回补为王国新军。1600 年档额外附带两个修正：`lcs_ned_navy`（海军建造速度 -90%、步兵火力 +1、部队人力花费 -40%、强攻能力 +50%）与 `lcs_ned_marine`（海军陆战队专属 +10% 训练度，用 `is_marine_modifier = yes` 限定只作用于陆战队）。另外 1570 年会单独弹一次限时事件 `lcs_ned_peak`（防御 +50%、攻城 +40%、水手 +100%，持续 50 年 = 600 个月）。
 
 生成器：`tools/gen_great_powers.py`（改数值直接改 `GROUPS`，重跑即可整套重生成）。
 
 ## 四、还原
 
 - 本体文件：Steam「验证游戏文件完整性」。
+- `common/defines.lua` 的 `MIN_RECRUIT_TIME_MODIFIER` 也属于本体文件，同样靠 Steam 校验还原。
 - 工坊 mod：取消订阅再订阅，或删掉该 mod 目录让其重新下载（改过的文件会被覆盖回原版）。
 
 ## 五、备注
 
 - 难度是**存档属性**，改完读现有极难档或新开极难局生效。
+- `common/defines.lua:1408` 的 `MIN_RECRUIT_TIME_MODIFIER` 由 `0.2` 改为 `0.0`：原本任何单位（陆军团与舰船）的建造时间都不能低于基础值的 20%，这条下限会把「海军建造速度 -90%」截断在 -80%；改成 0 后不再截断。该改动**全局生效**，对 AI 也一样。
 - 极难块里 `core_creation_cost = -2` 是无效键，`error.log` 里有 `Unknown modifier. Type: "core_creation_cost"` 报错，实际不生效；未改动（有效键是 `core_creation`，改了会让 AI 免费核心化）。
 - `Documents\Paradox Interactive\Europa Universalis IV\logs\error.log` 可用于确认新加的键没有报错。
 - 本地化 yml 必须 UTF-8 **带 BOM**：被剥掉 BOM 的文件游戏会按单字节读，`error.log` 报 `Error in localization value! Key: "...", Error: "Couldn't find Latin1 character"`，中文不再显示。

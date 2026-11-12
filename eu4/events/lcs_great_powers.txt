@@ -1,7 +1,7 @@
 ########################################
 # 主要国家 · 时代专属修正 (Little Code Sauce)
 # 每个国家在自己所属的时代各触发一次，进入时代后数日内自动发生
-# 共有 56 个事件 / 56 个专属修正
+# 共有 62 个事件 / 62 个专属修正
 ########################################
 
 namespace = lcs_gp
@@ -1292,6 +1292,156 @@ country_event = {
 		name = "lcs_gp.56.a"
 		add_country_modifier = { name = lcs_pru_4 duration = -1 }
 		set_country_flag = lcs_gp_pru_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.57
+	title = "lcs_gp.57.t"
+	desc = "lcs_gp.57.d"
+	picture = NAVAL_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = HOL
+			tag = NED
+		}
+		NOT = { has_country_flag = lcs_gp_ned_1 }
+		is_year = 1444
+		NOT = { is_year = 1500 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.57.a"
+		add_country_modifier = { name = lcs_ned_1 duration = -1 }
+		set_country_flag = lcs_gp_ned_1
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.58
+	title = "lcs_gp.58.t"
+	desc = "lcs_gp.58.d"
+	picture = NAVAL_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = HOL
+			tag = NED
+		}
+		NOT = { has_country_flag = lcs_gp_ned_2 }
+		is_year = 1500
+		NOT = { is_year = 1600 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.58.a"
+		add_country_modifier = { name = lcs_ned_2 duration = -1 }
+		set_country_flag = lcs_gp_ned_2
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.59
+	title = "lcs_gp.59.t"
+	desc = "lcs_gp.59.d"
+	picture = NAVAL_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = HOL
+			tag = NED
+		}
+		NOT = { has_country_flag = lcs_gp_ned_3 }
+		is_year = 1600
+		NOT = { is_year = 1700 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.59.a"
+		add_country_modifier = { name = lcs_ned_3 duration = -1 }
+		add_country_modifier = { name = lcs_ned_marine duration = -1 }
+		add_country_modifier = { name = lcs_ned_navy duration = -1 }
+		set_country_flag = lcs_gp_ned_3
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.60
+	title = "lcs_gp.60.t"
+	desc = "lcs_gp.60.d"
+	picture = NAVAL_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = HOL
+			tag = NED
+		}
+		NOT = { has_country_flag = lcs_gp_ned_4 }
+		is_year = 1700
+		NOT = { is_year = 1800 }
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.60.a"
+		add_country_modifier = { name = lcs_ned_4 duration = -1 }
+		set_country_flag = lcs_gp_ned_4
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.61
+	title = "lcs_gp.61.t"
+	desc = "lcs_gp.61.d"
+	picture = NAVAL_MILITARY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = HOL
+			tag = NED
+		}
+		NOT = { has_country_flag = lcs_gp_ned_5 }
+		is_year = 1800
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.61.a"
+		add_country_modifier = { name = lcs_ned_5 duration = -1 }
+		set_country_flag = lcs_gp_ned_5
+	}
+}
+
+
+country_event = {
+	id = lcs_gp.62
+	title = "lcs_gp.62.t"
+	desc = "lcs_gp.62.d"
+	picture = SIEGE_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = HOL
+			tag = NED
+		}
+		NOT = { has_country_flag = lcs_ned_peak }
+		is_year = 1570
+	}
+	mean_time_to_happen = { days = 5 }
+	option = {
+		name = "lcs_gp.62.a"
+		add_country_modifier = { name = lcs_ned_peak duration = 600 }
+		set_country_flag = lcs_ned_peak
 	}
 }
 
